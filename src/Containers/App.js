@@ -1,12 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
 import styles from "./App.module.css";
+import Layout from "../Components/Layout/Layout";
+import BurgerBuilder from "./BurgerBuilder/BurgerBuilder";
 
-function App() {
-	return (
-		<div className={styles.App}>
-			<p>Hello World</p>
-		</div>
-	);
+class App extends Component {
+	render() {
+		return (
+			<div className={styles.App}>
+				<Layout>
+					<p>Hello World</p>
+					<BurgerBuilder></BurgerBuilder>
+				</Layout>
+			</div>
+		);
+	}
 }
 
 export default App;
