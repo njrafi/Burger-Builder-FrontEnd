@@ -95,48 +95,49 @@ class BurgerBuilder extends Component {
 	};
 
 	purchaseContinueHandler = () => {
-		this.setState({
-			loading: true,
-		});
-		const order = {
-			ingredients: this.state.ingredients,
-			price: this.state.totalPrice,
-			customer: {
-				name: "NJ Rafi",
-				address: {
-					street: "27 Avoy Das Lane",
-					zipCode: 1203,
-					country: "Bangladesh",
-				},
-				email: "njrafibd@gmail.com",
-			},
-			deliveryMethod: "fastest",
-		};
+		// this.setState({
+		// 	loading: true,
+		// });
+		// const order = {
+		// 	ingredients: this.state.ingredients,
+		// 	price: this.state.totalPrice,
+		// 	customer: {
+		// 		name: "NJ Rafi",
+		// 		address: {
+		// 			street: "27 Avoy Das Lane",
+		// 			zipCode: 1203,
+		// 			country: "Bangladesh",
+		// 		},
+		// 		email: "njrafibd@gmail.com",
+		// 	},
+		// 	deliveryMethod: "fastest",
+		// };
 
-		axios
-			.post("/orders.json", order)
-			.then((response) => {
-				console.log(response);
-				this.setState({
-					ingredients: {
-						salad: 0,
-						bacon: 0,
-						cheese: 0,
-						meat: 0,
-					},
-					totalPrice: 4,
-					purchasable: false,
-					purchasing: false,
-					loading: false,
-				});
-			})
-			.catch((err) => {
-				this.setState({
-					loading: false,
-					purchasing: false,
-				});
-				console.log(err);
-			});
+		// axios
+		// 	.post("/orders.json", order)
+		// 	.then((response) => {
+		// 		console.log(response);
+		// 		this.setState({
+		// 			ingredients: {
+		// 				salad: 0,
+		// 				bacon: 0,
+		// 				cheese: 0,
+		// 				meat: 0,
+		// 			},
+		// 			totalPrice: 4,
+		// 			purchasable: false,
+		// 			purchasing: false,
+		// 			loading: false,
+		// 		});
+		// 	})
+		// 	.catch((err) => {
+		// 		this.setState({
+		// 			loading: false,
+		// 			purchasing: false,
+		// 		});
+		// 		console.log(err);
+		// 	});
+		this.props.history.push("/checkout");
 	};
 
 	render() {
