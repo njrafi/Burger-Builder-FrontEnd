@@ -2,18 +2,18 @@ import React, { Component } from "react";
 import Auxilary from "../Auxilary";
 import Modal from "../../Components/UI/Modal/Modal";
 
-const withErrorHandler = (WrappedComponent, axios) => {
+const withErrorHandler = (WrappedComponent, api) => {
 	return class extends Component {
 		state = {
 			error: null,
 		};
 
 		componentDidMount() {
-			axios.interceptors.request.use((req) => {
+			api().interceptors.request.use((req) => {
 				this.setState({ error: null });
 				return req;
 			});
-			axios.interceptors.response.use(
+			api().interceptors.response.use(
 				(res) => res,
 				(error) => {
 					this.setState({ error: error });

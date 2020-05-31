@@ -4,7 +4,6 @@ import Layout from "../Components/Layout/Layout";
 import BurgerBuilder from "./BurgerBuilder/BurgerBuilder";
 import Checkout from "./Checkout/Checkout";
 import { Switch, Route } from "react-router-dom";
-
 class App extends Component {
 	render() {
 		return (

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Button from "../../../Components/UI/Button/Button";
 import styles from "./ContactData.module.css";
-import axios from "../../../axios-orders";
+import api from "../../../axios-orders";
 import { withRouter } from "react-router-dom";
 class ContactData extends Component {
 	state = {
@@ -17,7 +17,6 @@ class ContactData extends Component {
 
 	orderHandler = (event) => {
 		event.preventDefault();
-
 		this.setState({
 			loading: true,
 		});
@@ -36,7 +35,7 @@ class ContactData extends Component {
 			deliveryMethod: "fastest",
 		};
 
-		axios
+		api()
 			.post("/orders.json", order)
 			.then((response) => {
 				this.props.history.replace("/");
