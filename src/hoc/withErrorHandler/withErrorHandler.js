@@ -22,6 +22,11 @@ const withErrorHandler = (WrappedComponent, api) => {
 			);
 		}
 
+		componentWillUnmount() {
+			api().interceptors.request.eject(this.requestInterceptor);
+			api().interceptors.response.eject(this.responseInterceptor);
+		}
+
 		errorConfirmedHandler = () => {
 			console.log("error confirm handler called");
 			this.setState({ error: null });
