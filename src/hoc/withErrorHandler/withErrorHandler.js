@@ -2,20 +2,21 @@ import React, { Component } from "react";
 import Auxilary from "../Auxilary";
 import Modal from "../../Components/UI/Modal/Modal";
 
-const withErrorHandler = (WrappedComponent, api) => {
+const withErrorHandler = (WrappedComponent, axios) => {
 	return class extends Component {
 		state = {
 			error: null,
 		};
 
-		componentDidMount() {
-			api().interceptors.request.use((req) => {
+		componentWillMount() {
+			this.requestInterceptor = axios.interceptors.request.use((req) => {
 				this.setState({ error: null });
 				return req;
 			});
-			api().interceptors.response.use(
+			this.responseInterceptor = axios.interceptors.response.use(
 				(res) => res,
 				(error) => {
+					console.log(error);
 					this.setState({ error: error });
 					return Promise.reject(error);
 				}
@@ -23,8 +24,8 @@ const withErrorHandler = (WrappedComponent, api) => {
 		}
 
 		componentWillUnmount() {
-			api().interceptors.request.eject(this.requestInterceptor);
-			api().interceptors.response.eject(this.responseInterceptor);
+			axios.interceptors.request.eject(this.requestInterceptor);
+			axios.interceptors.response.eject(this.responseInterceptor);
 		}
 
 		errorConfirmedHandler = () => {
@@ -33,6 +34,7 @@ const withErrorHandler = (WrappedComponent, api) => {
 		};
 
 		render() {
+			console.log("Error Handler Loaaded");
 			return (
 				<Auxilary>
 					<Modal

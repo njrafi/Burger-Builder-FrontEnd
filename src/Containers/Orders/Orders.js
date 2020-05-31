@@ -17,8 +17,11 @@ class Orders extends Component {
 			.get("/orders.json")
 			.then((response) => {
 				let orderArray = [];
-				for (let [_, order] of Object.entries(response.data))
-					orderArray.push(order);
+				for (let key in response.data)
+					orderArray.push({
+						...response.data[key],
+						key: key,
+					});
 
 				console.log(orderArray);
 				this.setState({ orders: orderArray, loading: false });
@@ -36,17 +39,21 @@ class Orders extends Component {
 			return <Spinner />;
 		}
 
-		if (this.state.orders == null || this.state.orders.length == 0)
+		if (this.state.orders == null || this.state.orders.length === 0)
 			return <h1> No Orders Found </h1>;
 
 		console.log(this.state.orders);
 		const orderComponents = this.state.orders.map((order) => {
 			return (
-				<Order ingredients={order.ingredients} price={order.price} />
+				<Order
+					ingredients={order.ingredients}
+					price={order.price}
+					key={order.key}
+				/>
 			);
 		});
 		return <div>{orderComponents}</div>;
 	}
 }
 
-export default withErrorHandler(Orders, api);
+export default withErrorHandler(Orders, api());
