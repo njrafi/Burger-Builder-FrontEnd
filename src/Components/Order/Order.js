@@ -1,12 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import styles from "./Order.module.css";
 
 const Order = (props) => {
 	return (
 		<div className={styles.Order}>
-			<p>Ingredients: Salad(0) Cheese(0) Meat(0) Bacon(0)</p>
 			<p>
-				Price: <strong>100 teka</strong>
+				Ingredients: Salad({props.ingredients.salad}) Cheese(
+				{props.ingredients.cheese}) Meat({props.ingredients.meat}) Bacon(
+				{props.ingredients.bacon})
+			</p>
+			<p>
+				Price: <strong>{props.price.toFixed(2)} $</strong>
 			</p>
 		</div>
 	);
