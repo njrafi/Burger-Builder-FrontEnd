@@ -10,6 +10,7 @@ class Checkout extends Component {
 			cheese: 0,
 			bacon: 0,
 		},
+		totalPrice: 0,
 	};
 
 	componentDidMount() {
@@ -38,7 +39,12 @@ class Checkout extends Component {
 				/>
 				<Route
 					path={this.props.match.url + "/contact-data"}
-					component={ContactData}
+					render={() => (
+						<ContactData
+							ingredients={this.state.ingredients}
+							totalPrice={this.state.totalPrice}
+						/>
+					)}
 				/>
 			</div>
 		);
