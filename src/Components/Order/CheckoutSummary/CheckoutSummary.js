@@ -16,9 +16,13 @@ const CheckoutSummary = (props) => {
 				<Burger ingredients={props.ingredients} />
 			</div>
 
-			<Button buttonType="Success"> Continue</Button>
+			<Button buttonType="Success" onClick={props.checkoutContinueHanler}>
+				Continue
+			</Button>
 
-			<Button buttonType="Danger"> Continue </Button>
+			<Button buttonType="Danger" onClick={props.checkoutCancelHandler}>
+				Cancel
+			</Button>
 		</div>
 	);
 };
