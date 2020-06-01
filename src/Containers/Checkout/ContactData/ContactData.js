@@ -3,6 +3,7 @@ import Button from "../../../Components/UI/Button/Button";
 import styles from "./ContactData.module.css";
 import api from "../../../axios-orders";
 import { withRouter } from "react-router-dom";
+import Input from "../../../Components/UI/Input/Input";
 class ContactData extends Component {
 	state = {
 		name: "NJ Rafi",
@@ -50,10 +51,10 @@ class ContactData extends Component {
 			<div className={styles.ContactData}>
 				<h4> Enter your Contact Data</h4>
 				<form>
-					<input type="text" name="name" placeholder="Your Name" />
-					<input type="text" name="email" placeholder="Your email" />
-					<input type="text" name="street" placeholder="Street" />
-					<input type="text" name="zipCode" placeholder="Zip Code" />
+					<Input type="text" name="name" label="Your Name" />
+					<Input type="text" name="email" label="Your email" />
+					<Input type="text" name="street" label="Street" />
+					<Input type="text" name="zipCode" label="Zip Code" />
 					<Button buttonType="Success" onClick={this.orderHandler}>
 						ORDER
 					</Button>
