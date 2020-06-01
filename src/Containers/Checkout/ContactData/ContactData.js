@@ -39,7 +39,7 @@ class ContactData extends Component {
 				},
 				value: "",
 			},
-			Country: {
+			country: {
 				elementType: "input",
 				elementConfig: {
 					type: "text",
@@ -61,24 +61,32 @@ class ContactData extends Component {
 		loading: false,
 	};
 
+	inputChangeHandler = (value, formKey) => {
+		// console.log(event);
+		// console.log(event.target.type);
+		console.log(value, formKey);
+		const updatedOrderForm = { ...this.state.orderForm };
+		updatedOrderForm[formKey].value = value;
+		this.setState({
+			orderForm: updatedOrderForm,
+		});
+	};
+
 	orderHandler = (event) => {
+		console.log("Order Submitted to web");
 		event.preventDefault();
 		this.setState({
 			loading: true,
 		});
+
+		let customerData = {};
+		for (let formKey in this.state.orderForm)
+			customerData[formKey] = this.state.orderForm[formKey].value;
+
 		const order = {
 			ingredients: this.props.ingredients,
 			price: this.props.totalPrice,
-			customer: {
-				name: this.state.orderForm.name.value,
-				email: this.state.orderForm.email.value,
-				address: {
-					street: this.state.orderForm.street.value,
-					zipCode: this.state.orderForm.zipCode.value,
-					country: this.state.orderForm.country.value,
-				},
-			},
-			deliveryMethod: this.state.orderForm.deliveryMethod.value,
+			customer: customerData,
 		};
 
 		api()
@@ -87,6 +95,7 @@ class ContactData extends Component {
 				this.props.history.replace("/");
 			})
 			.catch((err) => {
+				console.log(err);
 				this.props.history.replace("/");
 			});
 	};
@@ -95,16 +104,18 @@ class ContactData extends Component {
 		const formElementsArray = [];
 		for (let key in this.state.orderForm)
 			formElementsArray.push(
-				<Input {...this.state.orderForm[key]} key={key} />
+				<Input
+					{...this.state.orderForm[key]}
+					key={key}
+					changed={(event) => this.inputChangeHandler(event.target.value, key)}
+				/>
 			);
 		return (
 			<div className={styles.ContactData}>
 				<h4> Enter your Contact Data</h4>
-				<form>
+				<form onSubmit={this.orderHandler}>
 					{formElementsArray}
-					<Button buttonType="Success" onClick={this.orderHandler}>
-						ORDER
-					</Button>
+					<Button buttonType="Success">ORDER</Button>
 				</form>
 			</div>
 		);

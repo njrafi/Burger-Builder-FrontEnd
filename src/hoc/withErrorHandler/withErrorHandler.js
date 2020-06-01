@@ -29,12 +29,10 @@ const withErrorHandler = (WrappedComponent, axios) => {
 		}
 
 		errorConfirmedHandler = () => {
-			console.log("error confirm handler called");
 			this.setState({ error: null });
 		};
 
 		render() {
-			console.log("Error Handler Loaaded");
 			return (
 				<Auxilary>
 					<Modal
