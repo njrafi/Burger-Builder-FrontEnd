@@ -17,7 +17,8 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: true,
+				valid: false,
+				touched: false,
 			},
 			email: {
 				elementType: "input",
@@ -29,7 +30,8 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: true,
+				valid: false,
+				touched: false,
 			},
 			street: {
 				elementType: "input",
@@ -41,7 +43,8 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: true,
+				valid: false,
+				touched: false,
 			},
 			zipcode: {
 				elementType: "input",
@@ -56,7 +59,8 @@ class ContactData extends Component {
 					maxLength: 5,
 				},
 				errorMessage: "ZIP Code Length Must be 5",
-				valid: true,
+				valid: false,
+				touched: false,
 			},
 			country: {
 				elementType: "input",
@@ -68,7 +72,8 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: true,
+				valid: false,
+				touched: false,
 			},
 			deliveryMethod: {
 				elementType: "select",
@@ -80,8 +85,10 @@ class ContactData extends Component {
 				},
 				value: "fastest",
 				valid: true,
+				touched: false,
 			},
 		},
+		formIsValid: false,
 		loading: false,
 	};
 
@@ -106,10 +113,16 @@ class ContactData extends Component {
 			value,
 			updatedOrderForm[formKey].validation
 		);
+		updatedOrderForm[formKey].touched = true;
+		let formIsValid = true;
+		for (let key in updatedOrderForm)
+			formIsValid = formIsValid && updatedOrderForm[key].valid;
+
 		if (!process.env.NODE_ENV || process.env.NODE_ENV === "development")
 			console.log(updatedOrderForm[formKey]);
 		this.setState({
 			orderForm: updatedOrderForm,
+			formIsValid: formIsValid,
 		});
 	};
 
@@ -156,7 +169,9 @@ class ContactData extends Component {
 				<h4> Enter your Contact Data</h4>
 				<form onSubmit={this.orderHandler}>
 					{formElementsArray}
-					<Button buttonType="Success">ORDER</Button>
+					<Button buttonType="Success" disabled={!this.state.formIsValid}>
+						ORDER
+					</Button>
 				</form>
 			</div>
 		);

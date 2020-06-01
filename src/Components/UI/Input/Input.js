@@ -6,11 +6,8 @@ const Input = (props) => {
 	let inputElement = null;
 	let validationError = null;
 	let inputClasses = [styles.InputElement];
-	if (!props.valid) {
+	if (!props.valid && props.touched) {
 		inputClasses.push(styles.Invalid);
-	}
-
-	if (!props.valid) {
 		validationError = (
 			<p className={styles.ValidationError}>
 				{props.errorMessage

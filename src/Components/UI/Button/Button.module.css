@@ -8,11 +8,7 @@
     padding: 10px;
     margin: 10px;
     font-weight: bold;
-}
-
-.Button:first-of-type {
-    margin-left: 0;
-    padding-left: 0;
+    box-sizing: border-box;
 }
 
 .Success {
@@ -21,4 +17,9 @@
 
 .Danger {
     color: #944317;
+}
+
+button:disabled {
+    color: #aaa;
+    cursor: not-allowed;
 }
