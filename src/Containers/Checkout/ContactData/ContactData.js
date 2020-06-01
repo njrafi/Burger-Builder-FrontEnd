@@ -6,12 +6,57 @@ import { withRouter } from "react-router-dom";
 import Input from "../../../Components/UI/Input/Input";
 class ContactData extends Component {
 	state = {
-		name: "NJ Rafi",
-		email: "njrafibd@gmail.com",
-		address: {
-			street: "27 Avoy Das Lane",
-			zipCode: 1203,
-			country: "Bangladesh",
+		orderForm: {
+			name: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "Name",
+				},
+				value: "",
+			},
+			email: {
+				elementType: "input",
+				elementConfig: {
+					type: "email",
+					placeholder: "Email",
+				},
+				value: "",
+			},
+			street: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "Street",
+				},
+				value: "",
+			},
+			zipcode: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "ZIP Code",
+				},
+				value: "",
+			},
+			Country: {
+				elementType: "input",
+				elementConfig: {
+					type: "text",
+					placeholder: "Country",
+				},
+				value: "",
+			},
+			deliveryMethod: {
+				elementType: "select",
+				elementConfig: {
+					options: [
+						{ value: "fastest", displayValue: "Fastest" },
+						{ value: "cheapest", displayValue: "Cheapest" },
+					],
+				},
+				value: "fastest",
+			},
 		},
 		loading: false,
 	};
@@ -25,15 +70,15 @@ class ContactData extends Component {
 			ingredients: this.props.ingredients,
 			price: this.props.totalPrice,
 			customer: {
-				name: "NJ Rafi",
+				name: this.state.orderForm.name.value,
+				email: this.state.orderForm.email.value,
 				address: {
-					street: "27 Avoy Das Lane",
-					zipCode: 1203,
-					country: "Bangladesh",
+					street: this.state.orderForm.street.value,
+					zipCode: this.state.orderForm.zipCode.value,
+					country: this.state.orderForm.country.value,
 				},
-				email: "njrafibd@gmail.com",
 			},
-			deliveryMethod: "fastest",
+			deliveryMethod: this.state.orderForm.deliveryMethod.value,
 		};
 
 		api()
@@ -47,14 +92,16 @@ class ContactData extends Component {
 	};
 
 	render() {
+		const formElementsArray = [];
+		for (let key in this.state.orderForm)
+			formElementsArray.push(
+				<Input {...this.state.orderForm[key]} key={key} />
+			);
 		return (
 			<div className={styles.ContactData}>
 				<h4> Enter your Contact Data</h4>
 				<form>
-					<Input type="text" name="name" label="Your Name" />
-					<Input type="text" name="email" label="Your email" />
-					<Input type="text" name="street" label="Street" />
-					<Input type="text" name="zipCode" label="Zip Code" />
+					{formElementsArray}
 					<Button buttonType="Success" onClick={this.orderHandler}>
 						ORDER
 					</Button>
