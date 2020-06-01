@@ -17,7 +17,7 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: false,
+				valid: true,
 			},
 			email: {
 				elementType: "input",
@@ -29,7 +29,7 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: false,
+				valid: true,
 			},
 			street: {
 				elementType: "input",
@@ -41,7 +41,7 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: false,
+				valid: true,
 			},
 			zipcode: {
 				elementType: "input",
@@ -55,7 +55,8 @@ class ContactData extends Component {
 					minLength: 5,
 					maxLength: 5,
 				},
-				valid: false,
+				errorMessage: "ZIP Code Length Must be 5",
+				valid: true,
 			},
 			country: {
 				elementType: "input",
@@ -67,7 +68,7 @@ class ContactData extends Component {
 				validation: {
 					required: true,
 				},
-				valid: false,
+				valid: true,
 			},
 			deliveryMethod: {
 				elementType: "select",
@@ -78,6 +79,7 @@ class ContactData extends Component {
 					],
 				},
 				value: "fastest",
+				valid: true,
 			},
 		},
 		loading: false,
@@ -85,6 +87,7 @@ class ContactData extends Component {
 
 	checkValidity(value, rules) {
 		let isValid = true;
+		if (!rules) return isValid;
 
 		if (rules.required) isValid = value.trim() !== "" && isValid;
 		if (rules.minLength)
