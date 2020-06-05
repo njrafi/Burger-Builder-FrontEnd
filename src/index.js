@@ -4,12 +4,22 @@ import "./index.css";
 import App from "./Containers/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
+import { combineReducers, createStore } from "redux";
+import burgerReducer from "./store/reducers/burger";
+import { Provider } from "react-redux";
+
+const rootReducer = combineReducers({
+	burger: burgerReducer,
+});
+const store = createStore(rootReducer);
 
 ReactDOM.render(
 	<React.StrictMode>
-		<BrowserRouter>
-			<App />
-		</BrowserRouter>
+		<Provider store={store}>
+			<BrowserRouter>
+				<App />
+			</BrowserRouter>
+		</Provider>
 	</React.StrictMode>,
 	document.getElementById("root")
 );

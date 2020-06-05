@@ -1,0 +1,1 @@
+export const UPDATE_BURGER = "UPDATE_BURGER";

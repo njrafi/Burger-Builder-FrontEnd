@@ -4,6 +4,8 @@ import styles from "./ContactData.module.css";
 import api from "../../../axios-orders";
 import { withRouter } from "react-router-dom";
 import Input from "../../../Components/UI/Input/Input";
+import { connect } from "react-redux";
+import * as actionTypes from "../../../store/actions";
 class ContactData extends Component {
 	state = {
 		orderForm: {
@@ -138,14 +140,15 @@ class ContactData extends Component {
 			customerData[formKey] = this.state.orderForm[formKey].value;
 
 		const order = {
-			ingredients: this.props.ingredients,
-			price: this.props.totalPrice,
+			ingredients: this.props.burger.ingredients,
+			price: this.props.burger.totalPrice,
 			customer: customerData,
 		};
 
 		api()
 			.post("/orders.json", order)
 			.then((response) => {
+				this.props.updateBurger(null, 4);
 				this.props.history.replace("/");
 			})
 			.catch((err) => {
@@ -178,4 +181,23 @@ class ContactData extends Component {
 	}
 }
 
-export default withRouter(ContactData);
+const mapStateToProps = (state) => {
+	return {
+		burger: state.burger,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		updateBurger: (ingredients, totalPrice) =>
+			dispatch({
+				type: actionTypes.UPDATE_BURGER,
+				ingredients: ingredients,
+				totalPrice: totalPrice,
+			}),
+	};
+};
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(withRouter(ContactData));
