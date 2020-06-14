@@ -14,7 +14,7 @@ class Orders extends Component {
 			loading: true,
 		});
 		api()
-			.get("/orders.json")
+			.get("/orders")
 			.then((response) => {
 				let orderArray = [];
 				for (let key in response.data)

@@ -26,7 +26,7 @@ class BurgerBuilder extends Component {
 	componentDidMount() {
 		if (!this.props.burger.ingredients) {
 			api()
-				.get("/ingredients.json")
+				.get("/ingredients")
 				.then((response) => {
 					this.props.updateBurger(response.data, 4);
 				})

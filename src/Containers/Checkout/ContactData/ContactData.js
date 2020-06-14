@@ -146,7 +146,7 @@ class ContactData extends Component {
 		};
 
 		api()
-			.post("/orders.json", order)
+			.post("/orders", order)
 			.then((response) => {
 				this.props.updateBurger(null, 4);
 				this.props.history.replace("/");
